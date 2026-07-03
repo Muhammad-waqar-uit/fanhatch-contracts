@@ -8,6 +8,15 @@ everything is paid in the platform token **$FANS**. Target chain: **Base** (Ethe
 
 Built with [Foundry](https://book.getfoundry.sh/).
 
+## Deployments
+
+| Network | Status | Addresses |
+|---|---|---|
+| **Ethereum Sepolia** (`11155111`) | ✅ live + verified (2026-07-02) | [`deployments/ethereum-sepolia/`](./deployments/ethereum-sepolia/README.md) |
+| Base | not deployed yet | — |
+
+Key proxies (Sepolia): **$FANS** `0xeaD4…3AeA` · **ClubFactory** `0x85Eb…516f` · **FansSwap** `0x8B37…6510` · **FeeDistributor** `0xfb8d…ee10E` · **GovernanceModule** `0xF217…3b56` · **StakingManager** ($FANS farm) `0xc790…679B`. Full list + Etherscan links in the deployment README.
+
 ## Architecture
 
 | Contract | Path | Responsibility (spec) |
