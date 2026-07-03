@@ -85,6 +85,7 @@ contract ReentrancyAttack is FansBase {
         bytes memory reason = attacker.lastRevert();
         assertEq(reason.length, 4, "guard reverts with a 4-byte selector");
         assertEq(
+            // forge-lint: disable-next-line(unsafe-typecast)
             bytes4(reason),
             ReentrancyGuardUpgradeable.ReentrancyGuardReentrantCall.selector,
             "reverted with ReentrancyGuardReentrantCall"

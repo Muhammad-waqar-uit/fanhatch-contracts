@@ -32,6 +32,7 @@ contract PlatformTokenUnit is FansBase {
 
         vm.prank(alice);
         vm.expectRevert(PausableUpgradeable.EnforcedPause.selector);
+        // forge-lint: disable-next-line(erc20-unchecked-transfer)
         fans.transfer(bob, 1 ether);
     }
 
@@ -43,7 +44,7 @@ contract PlatformTokenUnit is FansBase {
 
         uint256 bobBefore = fans.balanceOf(bob);
         vm.prank(alice);
-        fans.transfer(bob, 1 ether);
+        assertTrue(fans.transfer(bob, 1 ether));
         assertEq(fans.balanceOf(bob), bobBefore + 1 ether);
     }
 
@@ -77,7 +78,7 @@ contract PlatformTokenUnit is FansBase {
         uint256 bobVotes = fans.getVotes(bob);
 
         vm.prank(alice);
-        fans.transfer(bob, 100 ether);
+        assertTrue(fans.transfer(bob, 100 ether));
 
         assertEq(fans.getVotes(alice), aliceVotes - 100 ether);
         assertEq(fans.getVotes(bob), bobVotes + 100 ether);

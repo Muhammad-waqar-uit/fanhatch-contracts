@@ -75,6 +75,9 @@ library CurveLibrary {
         uint256 mAmount = rpow(m, amount); // WAD
         // numerator/denominator both WAD-scaled → ratio is WAD; multiply by mStart (WAD) then /WAD.
         uint256 series = ((mAmount - WAD) * WAD) / (m - WAD); // WAD: (m^amount - 1)/(m - 1)
+        // The intermediate `/ WAD` is deliberate: mStart and series are WAD-scaled and can be
+        // very large, so multiplying all three terms before dividing would overflow uint256.
+        // forge-lint: disable-next-line(divide-before-multiply)
         return (BASE_PRICE * mStart / WAD) * series / WAD;
     }
 

@@ -81,6 +81,8 @@ contract StakingManager is
     }
 
     function lastTimeRewardApplicable() public view returns (uint256) {
+        // Time-based reward drip (Synthetix pattern); second-level validator drift is acceptable.
+        // forge-lint: disable-next-line(block-timestamp)
         return block.timestamp < periodFinish ? block.timestamp : periodFinish;
     }
 
@@ -129,6 +131,7 @@ contract StakingManager is
     /// @dev FeeDistributor transfers `reward` $FANS here, then calls this to start/extend the drip.
     function notifyRewardAmount(uint256 reward) external override updateReward(address(0)) {
         if (msg.sender != rewardsDistributor && msg.sender != owner()) revert NotDistributor();
+        // forge-lint: disable-next-line(block-timestamp)
         if (block.timestamp >= periodFinish) {
             rewardRate = reward / rewardsDuration;
         } else {
@@ -145,6 +148,7 @@ contract StakingManager is
     }
 
     function setRewardsDuration(uint256 duration) external onlyOwner {
+        // forge-lint: disable-next-line(block-timestamp)
         require(block.timestamp >= periodFinish, "drip active");
         rewardsDuration = duration;
     }
