@@ -13,7 +13,7 @@ import {DeployStaking} from "./DeployStaking.s.sol";
 import {FeeDistributor} from "../../src/fees/FeeDistributor.sol";
 
 /// @title DeployAll
-/// @notice Deploys the entire Fans.tech system in dependency order in one broadcast,
+/// @notice Deploys the entire Fanhatch system in dependency order in one broadcast,
 ///         and exports addresses to deployments/<network>/addresses.json.
 /// @dev Dependency order:
 ///      1. PlatformToken ($FANS)
@@ -37,7 +37,7 @@ contract DeployAll is
     //                  CONFIG — adjust before deploying
     // ═══════════════════════════════════════════════════════════════════════════
 
-    string constant TOKEN_NAME = "Fans.tech";
+    string constant TOKEN_NAME = "Fanhatch";
     string constant TOKEN_SYMBOL = "FANS";
     uint256 constant INITIAL_SUPPLY = 1_000_000_000 ether; // minted to owner on init
 

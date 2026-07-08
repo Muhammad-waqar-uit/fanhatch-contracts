@@ -14,7 +14,7 @@ import {StakingManager} from "../../src/staking/StakingManager.sol";
 import {CurveType, IClubFactory, IFeeDistributor} from "../../src/interfaces/IFansInterfaces.sol";
 
 /// @title FansBase
-/// @notice Shared harness: deploys the full Fans.tech system behind proxies and seeds balances.
+/// @notice Shared harness: deploys the full Fanhatch system behind proxies and seeds balances.
 ///         Every test suite extends this so the wiring lives in one place.
 contract FansBase is Test {
     PlatformToken public fans;

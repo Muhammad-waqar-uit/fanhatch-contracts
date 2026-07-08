@@ -1,4 +1,4 @@
-# Fans.tech — Ethereum Sepolia Deployment
+# Fanhatch — Ethereum Sepolia Deployment
 
 **Network:** Ethereum Sepolia · **chainId:** `11155111`
 **Deployed:** 2026-07-02 · **Block:** `11193463`
@@ -38,7 +38,7 @@
 
 ## Post-deploy wiring
 - `FeeDistributor.setStakingManager → 0xc790…679B` ($FANS farm) — so the 30% farmer share of the 1.5% trade fee drips to the $FANS farm.
-- `$FANS`: name **"Fans.tech"**, symbol **FANS**, initial supply **1,000,000,000** minted to the owner.
+- `$FANS`: name **"Fanhatch"**, symbol **FANS**, initial supply **1,000,000,000** minted to the owner.
 
 ## Reproduce / redeploy
 ```bash
@@ -53,3 +53,23 @@ DEPLOY_NETWORK=ethereum-sepolia forge script script/deploy/DeployAll.s.sol:Deplo
 This is a Sepolia deploy for integration/testing. **Before mainnet**, address the known hardening gap:
 **no timelock/multisig on upgrades** — the owner (deployer EOA) can currently upgrade any proxy instantly.
 Move ownership to a `TimelockController` + Gnosis Safe first.
+
+## Uniswap v4 hybrid (added 2026-07-07)
+
+$FANS/ETH swaps + liquidity migrated from the custom `FansSwap` AMM to a **Uniswap v4** pool.
+LP is an ERC-20 vault (`FANS-LP`) over a single full-range v4 position, so retail LPs get a
+stakeable token; swap fees are charged by the hook and drip to the staking farm.
+
+| Contract | Address |
+|---|---|
+| Uniswap v4 PoolManager (Sepolia, canonical) | `0xE03A1074c86CFeDd5C142C4F04F1a1536e203543` |
+| **FansHook** (1.5% fee → FeeDistributor → StakingManager) | `0xB2015C1c323d22D68E06042EB9A70a3b4f7760CC` |
+| **FansV4Router** (ETH↔$FANS swaps) | `0x19dbb0CBbf6910D39a6513f36E8CDC418f586545` |
+| **FansLPVault** (`FANS-LP` ERC-20) | `0x96bC0735c79666a68d779584974e1F93F42F0Df9` |
+| **LP StakingManager** (v4 LP farm — FeeDistributor drips here) | `0xF4A8F3c8ac866551B1aAa78cF19C238D7243BC3b` |
+
+Pool key: `currency0 = ETH (0x0)`, `currency1 = $FANS`, `fee = 0` (hook charges dynamically),
+`tickSpacing = 60`, `hooks = FansHook`. Initialized at 1:1 (`sqrtPriceX96 = 79228162514264337593543950336`).
+Machine-readable: [`v4-addresses.json`](./v4-addresses.json). `FansSwap` remains deployed but **deprecated**.
+
+> **Done:** LP `StakingManager` `0xF4A8F3c8ac866551B1aAa78cF19C238D7243BC3b` deployed (`stakingToken = FansLPVault`) and `FeeDistributor.setStakingManager` repointed to it — all trade-fee farmer share now rewards FANS-LP stakers (Option 1). The $FANS farm is no longer fee-funded.

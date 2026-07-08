@@ -13,7 +13,7 @@ import {FansV4Router} from "../../src/swap/FansV4Router.sol";
 import {IFeeDistributor} from "../../src/interfaces/IFansInterfaces.sol";
 
 /// @title DeployFansV4
-/// @notice Standalone deploy of the Fans.tech Uniswap v4 hybrid (Phase 1): CREATE2-mines the
+/// @notice Standalone deploy of the Fanhatch Uniswap v4 hybrid (Phase 1): CREATE2-mines the
 ///         {FansHook} implementation to a flag-encoding address, initializes the $FANS/ETH pool,
 ///         and deploys the thin {FansV4Router}. NOT wired into DeployAll — run on its own.
 /// @dev Mirrors mvmnt-memecoin-launchpad-contracts/script/deployments/DeployPositionManager.s.sol,

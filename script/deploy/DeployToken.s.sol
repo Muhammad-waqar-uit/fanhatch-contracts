@@ -29,7 +29,7 @@ contract DeployToken is Script {
 
     /// @dev Standalone entry point — hardcode params below before running.
     function run() external virtual {
-        string memory name_ = "Fans.tech";
+        string memory name_ = "Fanhatch";
         string memory symbol_ = "FANS";
         address owner_ = msg.sender;
         uint256 initialSupply = 1_000_000_000 ether; // TODO: set desired initial supply

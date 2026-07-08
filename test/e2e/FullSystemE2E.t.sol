@@ -6,7 +6,7 @@ import {ClubKey} from "../../src/club/ClubKey.sol";
 import {CurveType} from "../../src/interfaces/IFansInterfaces.sol";
 
 /// @title FullSystemE2E
-/// @notice One end-to-end story exercising the whole Fans.tech spec: club creation with a free
+/// @notice One end-to-end story exercising the whole Fanhatch spec: club creation with a free
 ///         first key, buys that push the price up, fee accrual to treasury + farmers, gifting,
 ///         keyholder voting that elects a president, moderator management, selling at a lower
 ///         price, and finally the owner claiming accrued farmer rewards. State is asserted at
